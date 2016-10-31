@@ -5,6 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Enable logging on all request calls
@@ -17,6 +18,11 @@ public class LoggingInterceptor implements HandlerInterceptor {
         System.out.println(req.getMethod());    // request method
         System.out.println(req.getRequestURI());    // requested uri
         System.out.println(req.getSession().getId());   // sessionid
+
+        // Some session exploration
+        HttpSession httpSession = req.getSession();
+        httpSession.setAttribute("sessionAttr", "sessionString"); // set attributes in the session
+
         req.setAttribute("specialAttr", "specialValue");    // add something to the request context
         System.out.println("Pre request handling logging.");    // bs
         return true;
