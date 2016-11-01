@@ -1,4 +1,4 @@
-package com.vantiv.insights.controller;
+package com.vantiv.insights.model;
 
 
 public class GreetingGetResponse {

@@ -1,5 +1,8 @@
 package com.vantiv.insights.controller;
 
+import com.vantiv.insights.model.GreetingGetResponse;
+import com.vantiv.insights.model.GreetingPostRequest;
+import com.vantiv.insights.model.GreetingPostResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

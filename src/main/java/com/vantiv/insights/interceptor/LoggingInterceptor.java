@@ -18,6 +18,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
         System.out.println(req.getMethod());    // request method
         System.out.println(req.getRequestURI());    // requested uri
         System.out.println(req.getSession().getId());   // sessionid
+        System.out.println(req.getHeader("Date"));  // get specific header
 
         // Some session exploration
         HttpSession httpSession = req.getSession();
