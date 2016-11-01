@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class GreetingController {
      * @param s
      */
     @RequestMapping(path = "**")
-    public String greeting (String s) {
+    public String greeting(String s) {
         return "I am Undefined Currently.";
     }
 
@@ -33,11 +34,13 @@ public class GreetingController {
      */
     @GetMapping(path = "/greeting")
     public GreetingGetResponse greeting() {
+        System.out.println(this.getRequestHeaders());
         return new GreetingGetResponse();
     }
 
     /**
      * POST /greeting
+     *
      * @param greetingPostRequest
      * @return
      */
@@ -49,8 +52,20 @@ public class GreetingController {
         return new GreetingPostResponse();
     }
 
-//    private Map<String,String> getRequestHeaders(){
-//        Map<String,String> headers = new HashMap<>();
-//
-//    }
+    private Map<String, String> getRequestHeaders() {
+        Map<String, String> headers = new HashMap<>();
+
+        Enumeration headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = (String) headerNames.nextElement();
+            String value = request.getHeader(key);
+            headers.put(key, value);
+        }
+
+        for (Map.Entry<String,String> entry: headers.entrySet()){
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+
+        return headers;
+    }
 }

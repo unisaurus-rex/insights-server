@@ -25,13 +25,13 @@ public class LoggingInterceptor implements HandlerInterceptor {
         httpSession.setAttribute("sessionAttr", "sessionString"); // set attributes in the session
 
         req.setAttribute("specialAttr", "specialValue");    // add something to the request context
-        System.out.println("Pre request handling logging.");    // bs
+        System.out.println("Pre-request handling logging.");    // bs
         return true;
     }
 
     public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler, ModelAndView modelAndView) {
         System.out.println(req.getAttribute("specialAttr"));
-        System.out.println("Post request handling logging.");
+        System.out.println("Post-request handling logging.");
     }
 
     public void afterCompletion(HttpServletRequest req, HttpServletResponse res, Object handler, Exception ex) throws Exception {
