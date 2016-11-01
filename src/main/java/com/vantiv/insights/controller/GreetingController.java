@@ -3,11 +3,17 @@ package com.vantiv.insights.controller;
 import com.vantiv.insights.model.GreetingGetResponse;
 import com.vantiv.insights.model.GreetingPostRequest;
 import com.vantiv.insights.model.GreetingPostResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class GreetingController {
-
+    @Autowired
+    private HttpServletRequest request;
 //    private String path = "/greeting".CASE_INSENSITIVE_ORDER;
 
     /**
@@ -43,4 +49,8 @@ public class GreetingController {
         return new GreetingPostResponse();
     }
 
+//    private Map<String,String> getRequestHeaders(){
+//        Map<String,String> headers = new HashMap<>();
+//
+//    }
 }
