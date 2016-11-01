@@ -62,10 +62,6 @@ public class GreetingController {
             headers.put(key, value);
         }
 
-        for (Map.Entry<String,String> entry: headers.entrySet()){
-            System.out.println(entry.getKey() + " " + entry.getValue());
-        }
-
         return headers;
     }
 }
