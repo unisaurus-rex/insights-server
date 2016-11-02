@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
  * Enable logging on all request calls
  *
  * TODO: enable some filesystem, Splunk?, logging mechanisms instead of std console logging
+ * TODO: create a core "logger" and use here
  */
 public class LoggingInterceptor implements HandlerInterceptor {
 
