@@ -1,4 +1,4 @@
-package com.vantiv.insights.model;
+package com.vantiv.insights.model.Greeting;
 
 
 public class GreetingGetResponse {
