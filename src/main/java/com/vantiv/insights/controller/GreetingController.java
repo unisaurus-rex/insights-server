@@ -1,8 +1,10 @@
 package com.vantiv.insights.controller;
 
-import com.vantiv.insights.model.GreetingGetResponse;
-import com.vantiv.insights.model.GreetingPostRequest;
-import com.vantiv.insights.model.GreetingPostResponse;
+import com.vantiv.insights.model.BS.BS;
+import com.vantiv.insights.model.BS.BSDAO;
+import com.vantiv.insights.model.Greeting.GreetingGetResponse;
+import com.vantiv.insights.model.Greeting.GreetingPostRequest;
+import com.vantiv.insights.model.Greeting.GreetingPostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +17,9 @@ import java.util.Map;
 public class GreetingController {
     @Autowired
     private HttpServletRequest request;
-//    private String path = "/greeting".CASE_INSENSITIVE_ORDER;
+
+    @Autowired
+    private BSDAO bsdao;
 
     /**
      * Default/Undefined route Handler. Can be an error or some other message
@@ -47,6 +51,9 @@ public class GreetingController {
     @PostMapping(path = "/greeting")
     public GreetingPostResponse greeting(@RequestBody(required = false) GreetingPostRequest greetingPostRequest) {
         if (greetingPostRequest != null) {
+            BS bs = bsdao.getBS(1000);
+            System.out.println(bs.getId() + " *********** " + bs.getDescription() );
+
             return new GreetingPostResponse(greetingPostRequest.getName());
         }
         return new GreetingPostResponse();
