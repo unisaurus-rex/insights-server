@@ -30,7 +30,8 @@ public class BSDAOImpl implements BSDAO {
     }
 
     public List<BS> listBS() {
-        String sql = "select * from BS";
+        String sql = "select * from BS ";  /*+
+                "limit 0, 3";*/
         List<BS> bsList = jdbcTemplate.query(sql, new BSRowMapper());
 
         return bsList;
