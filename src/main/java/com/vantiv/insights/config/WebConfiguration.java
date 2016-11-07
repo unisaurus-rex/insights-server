@@ -56,7 +56,7 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");  // db2 - "com.ibm.db2.jcc.DB2Driver"
         dataSource.setUrl("jdbc:mysql://localhost:3306/insightsDB");
         dataSource.setUsername("root");     // TODO move somewhere secure
         dataSource.setPassword("password"); // TODO move somewhere secure
