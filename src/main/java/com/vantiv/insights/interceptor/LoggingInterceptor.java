@@ -19,11 +19,11 @@ public class LoggingInterceptor implements HandlerInterceptor {
         System.out.println(req.getMethod());    // request method
         System.out.println(req.getRequestURI());    // requested uri
         System.out.println(req.getSession().getId());   // sessionid
-        System.out.println(req.getHeader("Date"));  // get specific header
+        System.out.println(req.getHeader("Authorization"));  // get specific header
 
         // Some session exploration
         HttpSession httpSession = req.getSession();
-        httpSession.setAttribute("sessionAttr", "sessionString"); // set attributes in the session
+        httpSession.setAttribute("SessionMessage", "sessionString"); // set attributes in the session
 
         req.setAttribute("specialAttr", "specialValue");    // add something to the request context
         System.out.println("Pre-request handling logging.");    // bs
