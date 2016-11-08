@@ -3,29 +3,29 @@ package com.vantiv.insights.model.Search;
 /**
  *
  */
-public class SearchResponse {
+public class SearchTotalsResponse {
 
-    private SearchResponseResult[] searchResponseResults;
+    private SearchTotalsResponseResult[] searchTotalsResponseResults;
 
     private Integer totalSearchResults;
 
-    public SearchResponse(){
+    public SearchTotalsResponse(){
         final int dimension = 10;
-        this.searchResponseResults = new SearchResponseResult[dimension];
+        this.searchTotalsResponseResults = new SearchTotalsResponseResult[dimension];
 
         for (int i = 0; i < dimension; ++i) {
-            this.searchResponseResults[i] = new SearchResponseResult();
+            this.searchTotalsResponseResults[i] = new SearchTotalsResponseResult();
         }
 
-        this.totalSearchResults = this.searchResponseResults.length;
+        this.totalSearchResults = this.searchTotalsResponseResults.length;
     }
 
-    public SearchResponseResult[] getSearchResponseResults() {
-        return searchResponseResults;
+    public SearchTotalsResponseResult[] getSearchTotalsResponseResults() {
+        return searchTotalsResponseResults;
     }
 
-    public void setSearchResponseResults(SearchResponseResult[] searchResponseResults) {
-        this.searchResponseResults = searchResponseResults;
+    public void setSearchTotalsResponseResults(SearchTotalsResponseResult[] searchTotalsResponseResults) {
+        this.searchTotalsResponseResults = searchTotalsResponseResults;
     }
 
 
@@ -38,13 +38,13 @@ public class SearchResponse {
     }
 
     // will come from db, api, etc.
-    private class SearchResponseResult {
+    private class SearchTotalsResponseResult {
         private Double volume;
         private Double spend;
         private Double surcharge;
         private Double interchange;
 
-        public SearchResponseResult() {
+        public SearchTotalsResponseResult() {
             this.interchange = 0.0;
             this.spend = 0.0;
             this.surcharge = 0.0;
