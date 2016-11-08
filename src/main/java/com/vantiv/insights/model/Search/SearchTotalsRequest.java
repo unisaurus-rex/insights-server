@@ -3,9 +3,9 @@ package com.vantiv.insights.model.Search;
 import org.joda.time.DateTime;
 
 /**
- * Created by U999716 on 11/7/2016.
+ *
  */
-public class SearchRequest {
+public class SearchTotalsRequest {
     private String[] groupBy;
     private DateRange dateRange;
     private String timerange;
