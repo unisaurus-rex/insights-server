@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * Custom Error Controller
  */
 @RestController
-public class ErrorController extends BaseController{
+public class ErrorController
+        extends BaseController
+        implements org.springframework.boot.autoconfigure.web.ErrorController {
     /**
      * Handle Undefined Routes
      *
@@ -27,9 +29,15 @@ public class ErrorController extends BaseController{
     }
 
     /**
-     * Cudstom handler for /error
+     * Custom handler for /error
      */
-    public ResponseEntity<ErrorResponse>genericErrorRequest() {
-        return new ResponseEntity<ErrorResponse>(new ErrorResponse(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    @RequestMapping(path = "/error")
+    public ResponseEntity<ErrorResponse> genericErrorRequest() {
+        return new ResponseEntity<ErrorResponse>(new ErrorResponse("Internal server error.", "An internal server error occured. Blah blah."), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public String getErrorPath() {
+        return null;
     }
 }
