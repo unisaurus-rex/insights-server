@@ -1,7 +1,30 @@
 package com.vantiv.insights.model.Error;
 
 /**
- * Created by U999716 on 11/7/2016.
+ *
  */
 public class ErrorResponse {
+    private String message;
+    private String error;
+
+    public ErrorResponse(String error, String message) {
+        this.error = error;
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
 }
