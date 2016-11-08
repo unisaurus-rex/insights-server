@@ -1,8 +1,10 @@
 package com.vantiv.insights.controller;
 
 import com.vantiv.insights.model.BS.BSDAO;
-import com.vantiv.insights.model.Search.SearchRequest;
-import com.vantiv.insights.model.Search.SearchResponse;
+import com.vantiv.insights.model.Search.SearchTotalsRequest;
+import com.vantiv.insights.model.Search.SearchTotalsResponse;
+import com.vantiv.insights.model.Search.SearchVolumeTotalRequest;
+import com.vantiv.insights.model.Search.SearchVolumeTotalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +30,7 @@ public class SearchController extends BaseController{
      * /search/totals?offset=offset
      * /search/totals?limit=limit&offset=offset
      *
-     * @param searchRequest
+     * @param searchTotalsRequest
      * @param id
      * @param offset
      * @return
@@ -37,24 +39,53 @@ public class SearchController extends BaseController{
             path = "/search/totals",
             consumes = "application/json",
             produces = "application/json")
-    public SearchResponse totalsSearch(@RequestBody(required = false) SearchRequest searchRequest,
-                                       @RequestParam(value = "limit", required = false) Integer id,
-                                       @RequestParam(value = "offset", required = false) Integer offset) {
-        SearchResponse searchResponse = new SearchResponse();
+    public SearchTotalsResponse totalsSearch(@RequestBody(required = false) SearchTotalsRequest searchTotalsRequest,
+                                             @RequestParam(value = "limit", required = false) Integer id,
+                                             @RequestParam(value = "offset", required = false) Integer offset) throws Exception {
+        SearchTotalsResponse searchResponse = new SearchTotalsResponse();
 
-        if (searchRequest != null) {
-            // do something with request
-//            System.out.println(this.getRequestHeaders());   // get headers
-            System.out.println("I AM AN INCORRECT REQUEST");
+        if (searchTotalsRequest != null) {
+            // TODO call some Search library function to handle request manipulation/management
         }
 
-        System.out.println(this.getRequestHeaders());
-        Map<String,String> headers = new HashMap<>();
-        headers.put("v_correlationId", "24u84u8u438u85");
+        throw new Exception();
+        // TODO some incorrect route usage error
 
-        this.setResponseHeaders(headers);
+//        return searchResponse;
+    }
+
+    /**
+     * volumeTotalSearch
+     * <p/>
+     * Handle requests to
+     * /search/totals
+     * /search/totals?limit=limit
+     * /search/totals?offset=offset
+     * /search/totals?limit=limit&offset=offset
+     *
+     * @param searchVolumeTotalRequest
+     * @param id
+     * @param offset
+     * @return
+     */
+    @PostMapping(
+            path = "/search/totals/volume",
+            consumes = "application/json",
+            produces = "application/json")
+    public SearchVolumeTotalResponse volumeTotalsSearch(@RequestBody(required = false) SearchVolumeTotalRequest searchVolumeTotalRequest,
+                                                        @RequestParam(value = "limit", required = false) Integer id,
+                                                        @RequestParam(value = "offset", required = false) Integer offset) {
+        SearchVolumeTotalResponse searchResponse = new SearchVolumeTotalResponse();
+
+        if (searchVolumeTotalRequest != null) {
+            // TODO call some Search library function to handle request manipulation/management
+        }
+
+        // TODO some incorrect route usage error
 
         return searchResponse;
     }
+
+
 
 }
