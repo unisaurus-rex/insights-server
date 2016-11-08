@@ -5,10 +5,7 @@ import com.vantiv.insights.model.Search.SearchRequest;
 import com.vantiv.insights.model.Search.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +13,7 @@ import java.util.Map;
  *
  */
 @RestController
-public class SearchController {
-    @Autowired
-    private HttpServletRequest request;
+public class SearchController extends BaseController{
 
     @Autowired
     private BSDAO bsdao;
@@ -53,19 +48,13 @@ public class SearchController {
             System.out.println("I AM AN INCORRECT REQUEST");
         }
 
+        System.out.println(this.getRequestHeaders());
+        Map<String,String> headers = new HashMap<>();
+        headers.put("v_correlationId", "24u84u8u438u85");
+
+        this.setResponseHeaders(headers);
+
         return searchResponse;
     }
 
-    private Map<String, String> getRequestHeaders() {
-        Map<String, String> headers = new HashMap<>();
-
-        Enumeration headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String key = (String) headerNames.nextElement();
-            String value = request.getHeader(key);
-            headers.put(key, value);
-        }
-
-        return headers;
-    }
 }
