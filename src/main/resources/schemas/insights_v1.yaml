@@ -1,0 +1,992 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Insights-API
+  description: Business Intelligence Data Visualization API
+basePath: /api/v1
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /search/totals:
+    post:
+      operationId: searchTotals
+      summary: SearchTotalsEndpoint
+      tags:
+        - SearchEndpoints
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/searchtotalsrequest'
+            example:
+              groupBy:
+                - year
+                - month
+                - merchant
+                - merchantGroup
+                - week
+              timeframe: year
+              dateRange:
+                start: '2680-03-17T05:22:57.732Z'
+                end: '4292-12-13T00:09:05.503Z'
+        - $ref: '#/parameters/trait:urlPagingParameters:limit'
+        - $ref: '#/parameters/trait:urlPagingParameters:offset'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/searchtotalsresponse'
+  /search/totals/volume:
+    post:
+      operationId: POST_search-totals-volume
+      summary: SearchVolumeTotalEndpoint
+      tags:
+        - SearchEndpoints
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/searchtotalsrequest'
+            example:
+              groupBy:
+                - day
+                - year
+              dateRange:
+                start: '2611-01-19T20:46:52.509Z'
+                end: '3772-01-30T14:26:16.114Z'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/searchvolumetotalresponse'
+  /search/totals/spend:
+    post:
+      operationId: POST_search-totals-spend
+      summary: SearchSpendTotalEndpoint
+      tags:
+        - SearchEndpoints
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/searchtotalsrequest'
+            example:
+              groupBy:
+                - day
+                - year
+              dateRange:
+                start: '2611-01-19T20:46:52.509Z'
+                end: '3772-01-30T14:26:16.114Z'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/searchspendtotalresponse'
+  /search/totals/interchange:
+    post:
+      operationId: POST_search-totals-interchange
+      summary: SearchInterchangeTotalEndpoint
+      tags:
+        - SearchEndpoints
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/searchtotalsrequest'
+            example:
+              results:
+                - interchange: 59075104
+                  card: magna labo
+                  month: ea nulla
+                  year: '4412'
+                  quarter: aliqua et in non
+                  date: '3580-11-07T17:49:30.757Z'
+                  cardGroup: id tempor Ut
+                  merchantGroup: mollit
+                  hour: sunt ut ad nostrud qui
+                  merchant: in Excepteur
+                - interchange: 87063162
+                  card: dolore reprehenderit sit
+                  month: deserunt enim
+                  date: '2447-11-22T05:48:39.016Z'
+                  merchantGroup: mollit eiusmod reprehend
+                - interchange: 56665965
+                  card: et enim incididunt dolore id
+                  cardGroup: proident
+                  year: '8917'
+                  week: 'consectetur '
+                  day: eu laborum irure aliqua
+                  hour: tempor
+                  month: incididunt culpa ut exercitation mollit
+                  date: '3965-06-23T06:01:09.804Z'
+                  merchantGroup: dolor eu
+                - interchange: 62158160
+                  card: eu Excepteur
+                  cardGroup: quis mollit
+                  quarter: adipisicing q
+                  hour: deserunt sint e
+                  day: adipisicing reprehenderit deserunt
+                  year: '6226'
+                  month: commodo
+                  date: '2766-01-31T17:09:50.360Z'
+              totalResults: 86608311
+              groupBy:
+                - merchantGroup
+                - hour
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/searchinterchangetotalresponse'
+  /search/totals/surcharge:
+    post:
+      operationId: POST_search-totals-surcharge
+      summary: SearchSurchargeTotalEndpoint
+      tags:
+        - SearchEndpoints
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/searchtotalsrequest'
+            example:
+              results:
+                - interchange: 59075104
+                  card: magna labo
+                  month: ea nulla
+                  year: '4412'
+                  quarter: aliqua et in non
+                  date: '3580-11-07T17:49:30.757Z'
+                  cardGroup: id tempor Ut
+                  merchantGroup: mollit
+                  hour: sunt ut ad nostrud qui
+                  merchant: in Excepteur
+                - interchange: 87063162
+                  card: dolore reprehenderit sit
+                  month: deserunt enim
+                  date: '2447-11-22T05:48:39.016Z'
+                  merchantGroup: mollit eiusmod reprehend
+                - interchange: 56665965
+                  card: et enim incididunt dolore id
+                  cardGroup: proident
+                  year: '8917'
+                  week: 'consectetur '
+                  day: eu laborum irure aliqua
+                  hour: tempor
+                  month: incididunt culpa ut exercitation mollit
+                  date: '3965-06-23T06:01:09.804Z'
+                  merchantGroup: dolor eu
+                - interchange: 62158160
+                  card: eu Excepteur
+                  cardGroup: quis mollit
+                  quarter: adipisicing q
+                  hour: deserunt sint e
+                  day: adipisicing reprehenderit deserunt
+                  year: '6226'
+                  month: commodo
+                  date: '2766-01-31T17:09:50.360Z'
+              totalResults: 86608311
+              groupBy:
+                - merchantGroup
+                - hour
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/searchsurchargetotalresponse'
+parameters:
+  'trait:urlPagingParameters:limit':
+    name: limit
+    in: query
+    type: integer
+    minimum: 0
+    maximum: 100
+  'trait:urlPagingParameters:offset':
+    name: offset
+    in: query
+    type: integer
+    minimum: 0
+definitions:
+  searchtotalsrequest:
+    allOf:
+      - $ref: '#/definitions/daterange'
+      - $ref: '#/definitions/groupby'
+      - $ref: '#/definitions/timeframe'
+    example:
+      groupBy:
+        - merchant
+        - quarter
+        - hour
+        - cardGroup
+      dateRange:
+        start: '4000-01-11T10:39:40.457Z'
+        end: '2220-11-08T08:53:54.004Z'
+      timeframe: month
+  groupby:
+    type: object
+    properties:
+      groupBy:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+          enum:
+            - year
+            - month
+            - week
+            - day
+            - hour
+            - quarter
+            - card
+            - cardGroup
+            - merchant
+            - merchantGroup
+    required:
+      - groupBy
+    example:
+      groupBy:
+        - merchant
+        - month
+  timeframe:
+    type: object
+    properties:
+      timeframe:
+        type: string
+        enum:
+          - year
+          - month
+          - week
+          - day
+          - hour
+          - quarter
+    example:
+      timeframe: day
+  daterange:
+    type: object
+    properties:
+      dateRange:
+        type: object
+        properties:
+          start:
+            type: string
+            format: date-time
+          end:
+            type: string
+            format: date-time
+        required:
+          - start
+          - end
+    example:
+      dateRange:
+        start: '3551-11-18T03:05:00.653Z'
+        end: '1980-06-27T11:53:09.654Z'
+  searchtotalsresponse:
+    allOf:
+      - $ref: '#/definitions/timeframe'
+      - $ref: '#/definitions/daterange'
+      - $ref: '#/definitions/groupby'
+      - $ref: '#/definitions/searchTotalsResponseResults'
+    example:
+      groupBy:
+        - day
+        - week
+        - card
+        - hour
+        - merchant
+      results:
+        - interchange: 97635045
+          spend: 18465658
+          surcharge: 89827665
+          volume: 30219309
+          card: eu nostrud
+          month: ea
+      totalResults: 11434003
+      timeframe: quarter
+  searchTotalsResponseResults:
+    type: object
+    required:
+      - results
+      - totalResults
+    properties:
+      results:
+        $ref: '#/definitions/searchtotalsresponseresultsfields'
+      totalResults:
+        type: number
+        minimum: 0
+    example:
+      results:
+        - interchange: 17672319
+          spend: 36825386
+          surcharge: 86357461
+          volume: 52541864
+          cardGroup: Ut nulla
+          card: ipsum ad aliqua in nisi
+          month: officia et ullamco in labore
+          quarter: et amet
+        - interchange: 69391265
+          spend: 98018977
+          surcharge: 47049211
+          volume: 91618950
+          cardGroup: mollit i
+      totalResults: 56471267
+  groupbyfieldcard:
+    type: object
+    properties:
+      card:
+        type: string
+    example:
+      card: mollit dolore eli
+  groupbyfieldcardgroup:
+    type: object
+    properties:
+      cardGroup:
+        type: string
+    example:
+      cardGroup: et fugiat
+  groupbyfielddate:
+    type: object
+    properties:
+      date:
+        type: string
+        format: date-time
+    example:
+      date: '4778-10-03T18:41:16.867Z'
+  groupbyfieldday:
+    type: object
+    properties:
+      day:
+        type: string
+    example:
+      day: fugiat par
+  groupbyfieldhour:
+    type: object
+    properties:
+      hour:
+        type: string
+    example:
+      hour: ut ullamco sunt
+  groupbyfieldmerchant:
+    type: object
+    properties:
+      merchant:
+        type: string
+    example:
+      merchant: Duis
+  groupbyfieldmerchantgroup:
+    type: object
+    properties:
+      merchantGroup:
+        type: string
+    example:
+      merchantGroup: do adipisicing pariatur tempor
+  groupbyfieldmonth:
+    type: object
+    properties:
+      month:
+        type: string
+    example:
+      month: mollit sint anim veniam fugiat
+  groupbyfieldquarter:
+    type: object
+    properties:
+      quarter:
+        type: string
+    example:
+      quarter: ex adipisicing elit amet
+  groupbyfieldweek:
+    type: object
+    properties:
+      week:
+        type: string
+    example:
+      week: consequat non reprehenderit ullamco in
+  groupbyfieldyear:
+    type: object
+    properties:
+      year:
+        pattern: '[0-9]{4}'
+        type: string
+    example:
+      year: '4279'
+  searchtotalsresponseresultsfields:
+    type: array
+    items:
+      allOf:
+        - $ref: '#/definitions/groupbyfieldcard'
+        - $ref: '#/definitions/groupbyfieldcardgroup'
+        - $ref: '#/definitions/groupbyfielddate'
+        - $ref: '#/definitions/groupbyfieldday'
+        - $ref: '#/definitions/groupbyfieldhour'
+        - $ref: '#/definitions/groupbyfieldmerchant'
+        - $ref: '#/definitions/groupbyfieldmerchantgroup'
+        - $ref: '#/definitions/groupbyfieldmonth'
+        - $ref: '#/definitions/groupbyfieldquarter'
+        - $ref: '#/definitions/groupbyfieldweek'
+        - $ref: '#/definitions/groupbyfieldyear'
+        - $ref: '#/definitions/interchangetotal'
+        - $ref: '#/definitions/spendtotal'
+        - $ref: '#/definitions/surchargetotal'
+        - $ref: '#/definitions/volumetotal'
+    example:
+      - interchange: 71397995
+        spend: 56287146
+        surcharge: 63884887
+        volume: 6642138
+        cardGroup: elit voluptate do
+        week: incididunt amet aliqua
+        date: '3328-12-02T22:17:27.664Z'
+        day: consequat non
+        year: '2086'
+        merchantGroup: Excepteur
+      - interchange: 10853125
+        spend: 61844064
+        surcharge: 69129298
+        volume: 92880877
+        hour: dolor mollit
+      - interchange: 70213299
+        spend: 76676176
+        surcharge: 75066702
+        volume: 75512168
+        card: ullamco veniam Excepteur Duis quis
+        week: culpa deserunt mi
+        month: fug
+        cardGroup: consectetur
+        year: '4135'
+        merchantGroup: cillum fugiat reprehenderit
+        quarter: consequat
+        merchant: deserunt ullamco
+        day: esse
+        hour: proident enim veniam esse nulla
+        date: '2084-03-21T06:48:51.018Z'
+      - interchange: 40085269
+        spend: 33580220
+        surcharge: 5341906
+        volume: 75395764
+        month: in exercitation voluptate magna nisi
+        quarter: sed culpa quis anim occaecat
+        cardGroup: est labo
+      - interchange: 82980709
+        spend: 31238406
+        surcharge: 25053521
+        volume: 33433116
+        merchantGroup: ex Duis
+        month: anim dolore do voluptate commodo
+        merchant: ''
+  interchangetotal:
+    type: object
+    properties:
+      interchange:
+        type: number
+        minimum: 0
+    required:
+      - interchange
+    example:
+      interchange: 56666627
+  spendtotal:
+    type: object
+    properties:
+      spend:
+        minimum: 0
+        type: number
+    required:
+      - spend
+    example:
+      spend: 11662927
+  surchargetotal:
+    type: object
+    properties:
+      surcharge:
+        minimum: 0
+        type: number
+    required:
+      - surcharge
+    example:
+      surcharge: 99362302
+  volumetotal:
+    type: object
+    properties:
+      volume:
+        minimum: 0
+        type: integer
+    required:
+      - volume
+    example:
+      volume: 4456263
+  searchvolumetotalresponse:
+    allOf:
+      - $ref: '#/definitions/searchvolumetotalresponseresults'
+      - $ref: '#/definitions/groupby'
+      - $ref: '#/definitions/daterange'
+      - $ref: '#/definitions/timeframe'
+    example:
+      results:
+        - volume: 45809589
+          hour: dolore eiusmod elit ipsum quis
+          year: '4822'
+          merchantGroup: consequat exercitation
+          week: laborum oc
+          cardGroup: elit
+          merchant: ea aliqua Lorem labore
+          date: '2321-11-02T04:23:54.060Z'
+          month: fugia
+      totalResults: 93948655
+      groupBy:
+        - merchant
+      timeframe: quarter
+      dateRange:
+        start: '3086-12-20T18:25:32.597Z'
+        end: '3256-12-22T10:45:32.731Z'
+  searchvolumetotalresponseresultsfields:
+    type: array
+    uniqueItems: false
+    items:
+      allOf:
+        - $ref: '#/definitions/groupbyfieldcard'
+        - $ref: '#/definitions/groupbyfieldcardgroup'
+        - $ref: '#/definitions/groupbyfielddate'
+        - $ref: '#/definitions/groupbyfieldday'
+        - $ref: '#/definitions/groupbyfieldhour'
+        - $ref: '#/definitions/groupbyfieldmerchant'
+        - $ref: '#/definitions/groupbyfieldmerchantgroup'
+        - $ref: '#/definitions/groupbyfieldmonth'
+        - $ref: '#/definitions/groupbyfieldquarter'
+        - $ref: '#/definitions/groupbyfieldweek'
+        - $ref: '#/definitions/groupbyfieldyear'
+        - $ref: '#/definitions/volumetotal'
+    example:
+      - volume: 93650228
+        cardGroup: aute laboris mollit sed ipsum
+        merchant: ut proident fugiat incididunt labore
+        day: labore
+      - volume: 80600568
+        card: consequat in sunt irure
+        year: '8316'
+        date: '3943-10-02T14:38:38.295Z'
+        quarter: in
+      - volume: 23945543
+        card: reprehenderit sit
+        year: '5073'
+        month: ut des
+        merchantGroup: ad
+        hour: elit cillum ad est fugiat
+        day: aliqua dolore do esse
+        date: '2412-11-21T08:17:34.030Z'
+        merchant: ''
+        quarter: minim
+      - volume: 47045408
+        hour: do
+      - volume: 21974895
+        week: magna nulla dolore tempor incididunt
+        month: reprehenderit laborum in
+        cardGroup: proident veniam minim
+  searchvolumetotalresponseresults:
+    type: object
+    properties:
+      results:
+        $ref: '#/definitions/searchvolumetotalresponseresultsfields'
+      totalResults:
+        type: number
+        minimum: 0
+    required:
+      - results
+      - totalResults
+    example:
+      results:
+        - volume: 25484239
+          quarter: ex exercitation
+          merchant: amet aute nulla
+          card: Excepteur cupidatat esse qui
+          week: ut in aliquip
+          cardGroup: ut
+          day: dolore tempor sunt esse nisi
+          merchantGroup: culpa eu aute ad
+          year: '5199'
+          hour: pariatur aliquip
+          date: '2154-01-23T09:51:23.199Z'
+        - volume: 40636348
+          hour: enim reprehenderit consectetur
+          card: et velit
+          year: '0037'
+          merchantGroup: aliqua Excepteur in
+        - volume: 70909672
+          merchant: occaecat fu
+        - volume: 93815796
+          year: '0413'
+          month: in ea enim Excepteur
+          merchant: elit
+          quarter: veniam
+      totalResults: 97614175
+  searchspendtotalresponseresultsfields:
+    type: array
+    uniqueItems: false
+    items:
+      allOf:
+        - $ref: '#/definitions/groupbyfieldcard'
+        - $ref: '#/definitions/groupbyfieldcardgroup'
+        - $ref: '#/definitions/groupbyfielddate'
+        - $ref: '#/definitions/groupbyfieldday'
+        - $ref: '#/definitions/groupbyfieldhour'
+        - $ref: '#/definitions/groupbyfieldmerchant'
+        - $ref: '#/definitions/groupbyfieldmerchantgroup'
+        - $ref: '#/definitions/groupbyfieldmonth'
+        - $ref: '#/definitions/groupbyfieldquarter'
+        - $ref: '#/definitions/groupbyfieldweek'
+        - $ref: '#/definitions/groupbyfieldyear'
+        - $ref: '#/definitions/spendtotal'
+    example:
+      - volume: 93650228
+        cardGroup: aute laboris mollit sed ipsum
+        merchant: ut proident fugiat incididunt labore
+        day: labore
+      - volume: 80600568
+        card: consequat in sunt irure
+        year: '8316'
+        date: '3943-10-02T14:38:38.295Z'
+        quarter: in
+      - volume: 23945543
+        card: reprehenderit sit
+        year: '5073'
+        month: ut des
+        merchantGroup: ad
+        hour: elit cillum ad est fugiat
+        day: aliqua dolore do esse
+        date: '2412-11-21T08:17:34.030Z'
+        merchant: ''
+        quarter: minim
+      - volume: 47045408
+        hour: do
+      - volume: 21974895
+        week: magna nulla dolore tempor incididunt
+        month: reprehenderit laborum in
+        cardGroup: proident veniam minim
+  searchspendtotalresponseresults:
+    type: object
+    properties:
+      results:
+        $ref: '#/definitions/searchspendtotalresponseresultsfields'
+      totalResults:
+        type: number
+        minimum: 0
+    required:
+      - results
+      - totalResults
+    example:
+      results:
+        - spend: 55434774
+          merchantGroup: ullamco Ut
+          year: '8906'
+          quarter: laboris et
+          month: consectetur commodo
+          hour: ''
+          cardGroup: ad Duis consectetur
+          merchant: esse
+          day: eu do
+        - spend: 16346836
+          hour: dolore
+          week: sunt veniam Lorem culpa enim
+        - spend: 26042960
+          year: '4275'
+          week: veniam Lorem labore ut pariatur
+          hour: i
+          merchant: fugiat
+          card: in ex
+          quarter: sed
+          merchantGroup: enim
+          month: labore
+      totalResults: 13296592
+  searchspendtotalresponse:
+    allOf:
+      - $ref: '#/definitions/searchspendtotalresponseresults'
+      - $ref: '#/definitions/groupby'
+      - $ref: '#/definitions/daterange'
+      - $ref: '#/definitions/timeframe'
+    example:
+      results:
+        - spend: 32985236
+          hour: anim
+          quarter: eu
+          date: '2984-05-02T16:07:55.544Z'
+        - spend: 10113934
+          day: anim commodo deserunt voluptate enim
+          merchant: esse ad laborum eiusmod
+          date: '5013-04-29T06:38:30.819Z'
+          month: irure est
+          merchantGroup: fugiat proident
+          cardGroup: in est commodo non
+          hour: exercitation
+          quarter: occaecat eu velit dolor culpa
+          card: 'in ipsum velit Excepteur '
+        - spend: 94219613
+          month: consequat
+          week: tempor
+          merchantGroup: elit
+      totalResults: 65596309
+      groupBy:
+        - quarter
+        - card
+        - hour
+        - merchant
+  searchinterchangetotalresponseresultsfields:
+    type: array
+    uniqueItems: false
+    items:
+      allOf:
+        - $ref: '#/definitions/groupbyfieldcard'
+        - $ref: '#/definitions/groupbyfieldcardgroup'
+        - $ref: '#/definitions/groupbyfielddate'
+        - $ref: '#/definitions/groupbyfieldday'
+        - $ref: '#/definitions/groupbyfieldhour'
+        - $ref: '#/definitions/groupbyfieldmerchant'
+        - $ref: '#/definitions/groupbyfieldmerchantgroup'
+        - $ref: '#/definitions/groupbyfieldmonth'
+        - $ref: '#/definitions/groupbyfieldquarter'
+        - $ref: '#/definitions/groupbyfieldweek'
+        - $ref: '#/definitions/groupbyfieldyear'
+        - $ref: '#/definitions/interchangetotal'
+    example:
+      - volume: 93650228
+        cardGroup: aute laboris mollit sed ipsum
+        merchant: ut proident fugiat incididunt labore
+        day: labore
+      - volume: 80600568
+        card: consequat in sunt irure
+        year: '8316'
+        date: '3943-10-02T14:38:38.295Z'
+        quarter: in
+      - volume: 23945543
+        card: reprehenderit sit
+        year: '5073'
+        month: ut des
+        merchantGroup: ad
+        hour: elit cillum ad est fugiat
+        day: aliqua dolore do esse
+        date: '2412-11-21T08:17:34.030Z'
+        merchant: ''
+        quarter: minim
+      - volume: 47045408
+        hour: do
+      - volume: 21974895
+        week: magna nulla dolore tempor incididunt
+        month: reprehenderit laborum in
+        cardGroup: proident veniam minim
+  searchinterchangetotalresponseresults:
+    type: object
+    properties:
+      results:
+        $ref: '#/definitions/searchinterchangetotalresponseresultsfields'
+      totalResults:
+        type: number
+        minimum: 0
+    required:
+      - results
+      - totalResults
+    example:
+      results:
+        - interchange: 85470018
+          hour: enim
+          card: consequat est eiusmod occaecat
+          month: veniam
+          date: '3596-12-26T16:19:59.294Z'
+          merchant: quis sint Duis
+          merchantGroup: commodo in ut
+          week: incididunt adipisicing
+          quarter: cillum pariatur
+          day: in cupidatat cillum sint sunt
+        - interchange: 76423690
+          cardGroup: enim
+          merchantGroup: pariatur fu
+        - interchange: 95874253
+          year: '1348'
+          hour: cupidatat elit velit Ut
+          merchantGroup: anim enim occaecat adipisicing
+          cardGroup: laboris
+          day: non elit
+          quarter: velit magna
+          date: '4508-01-11T01:23:32.596Z'
+          card: ullamco minim ipsum
+          week: labore quis ad
+        - interchange: 38572442
+          merchantGroup: ullamco esse magna
+          week: et enim culpa
+          card: e
+          hour: ut
+          cardGroup: magna voluptate incididunt
+          quarter: reprehenderit nulla ut
+          date: '3006-11-22T08:24:27.527Z'
+          day: nulla culpa
+      totalResults: 44816575
+  searchinterchangetotalresponse:
+    allOf:
+      - $ref: '#/definitions/searchinterchangetotalresponseresults'
+      - $ref: '#/definitions/groupby'
+      - $ref: '#/definitions/daterange'
+      - $ref: '#/definitions/timeframe'
+    example:
+      results:
+        - interchange: 21407126
+          merchant: dolore ullamco
+          merchantGroup: in mollit nostrud commodo adipisicing
+          year: '0604'
+          cardGroup: ea consectetur voluptate exercitation non
+        - interchange: 72548952
+          day: culpa
+          year: '2891'
+          week: consequat eu anim commodo
+          merchant: Ut laboris in irure
+          month: qui adipisicing cupidatat
+          card: Excepteur tempor
+          date: '4662-05-13T06:24:28.587Z'
+          quarter: in
+        - interchange: 57354334
+          day: veniam tempor nostrud
+        - interchange: 54084774
+      totalResults: 72676789
+      groupBy:
+        - year
+        - month
+        - quarter
+        - merchant
+        - day
+  searchsurchargetotalresponseresultsfields:
+    type: array
+    uniqueItems: false
+    items:
+      allOf:
+        - $ref: '#/definitions/groupbyfieldcard'
+        - $ref: '#/definitions/groupbyfieldcardgroup'
+        - $ref: '#/definitions/groupbyfielddate'
+        - $ref: '#/definitions/groupbyfieldday'
+        - $ref: '#/definitions/groupbyfieldhour'
+        - $ref: '#/definitions/groupbyfieldmerchant'
+        - $ref: '#/definitions/groupbyfieldmerchantgroup'
+        - $ref: '#/definitions/groupbyfieldmonth'
+        - $ref: '#/definitions/groupbyfieldquarter'
+        - $ref: '#/definitions/groupbyfieldweek'
+        - $ref: '#/definitions/groupbyfieldyear'
+        - $ref: '#/definitions/surchargetotal'
+    example:
+      - surcharge: 33710307
+        year: '4572'
+      - surcharge: 8678993
+        week: qui dolore culpa ut
+        month: ut
+        date: '4175-08-06T21:04:07.908Z'
+        day: cillum
+        year: '9341'
+        card: Ut voluptate
+        quarter: laboru
+        cardGroup: incididunt ut
+        merchant: tempor reprehenderit sunt
+        merchantGroup: ut
+      - surcharge: 85281474
+        year: '4051'
+        date: '3363-01-21T00:12:41.637Z'
+        month: reprehenderit
+        card: Duis
+        week: veniam nulla exercitation Duis
+        merchantGroup: ullamco esse ut mollit eiusmod
+        merchant: in et sit
+        hour: in ea
+        quarter: Ut sed
+        cardGroup: et offic
+      - surcharge: 15117162
+        year: '5160'
+        hour: adipisicing in non ullamco
+        date: '3799-11-18T06:01:28.678Z'
+  searchsurchargetotalresponseresults:
+    type: object
+    properties:
+      results:
+        $ref: '#/definitions/searchsurchargetotalresponseresultsfields'
+      totalResults:
+        type: number
+        minimum: 0
+    required:
+      - results
+      - totalResults
+    example:
+      results:
+        - interchange: 85470018
+          hour: enim
+          card: consequat est eiusmod occaecat
+          month: veniam
+          date: '3596-12-26T16:19:59.294Z'
+          merchant: quis sint Duis
+          merchantGroup: commodo in ut
+          week: incididunt adipisicing
+          quarter: cillum pariatur
+          day: in cupidatat cillum sint sunt
+        - interchange: 76423690
+          cardGroup: enim
+          merchantGroup: pariatur fu
+        - interchange: 95874253
+          year: '1348'
+          hour: cupidatat elit velit Ut
+          merchantGroup: anim enim occaecat adipisicing
+          cardGroup: laboris
+          day: non elit
+          quarter: velit magna
+          date: '4508-01-11T01:23:32.596Z'
+          card: ullamco minim ipsum
+          week: labore quis ad
+        - interchange: 38572442
+          merchantGroup: ullamco esse magna
+          week: et enim culpa
+          card: e
+          hour: ut
+          cardGroup: magna voluptate incididunt
+          quarter: reprehenderit nulla ut
+          date: '3006-11-22T08:24:27.527Z'
+          day: nulla culpa
+      totalResults: 44816575
+  searchsurchargetotalresponse:
+    allOf:
+      - $ref: '#/definitions/searchsurchargetotalresponseresults'
+      - $ref: '#/definitions/groupby'
+      - $ref: '#/definitions/daterange'
+      - $ref: '#/definitions/timeframe'
+    example:
+      results:
+        - surcharge: 2281706
+          month: proident in tempor nostrud
+          merchant: nisi ad et id veniam
+          hour: ''
+          cardGroup: do nisi consequat Duis occae
+          quarter: elit amet sit non
+        - surcharge: 57510657
+        - surcharge: 31168559
+          merchant: sed do reprehenderit culpa incididunt
+          card: ea
+          quarter: quis occaecat
+          year: '7723'
+          date: '3350-11-06T14:31:09.581Z'
+        - surcharge: 56751451
+          day: commodo
+          quarter: Ut veniam reprehenderit minim
+          hour: ad qui elit amet ullamco
+          date: '2502-02-09T02:51:37.534Z'
+          year: '4851'
+          merchantGroup: nulla Excepteur ullamco ea sint
+          card: in occ
+          merchant: eiusmod ut culpa deserunt in
+          week: enim nisi exercitation Excepteur
+          month: tempor nulla Ut
+          cardGroup: dolore amet
+        - surcharge: 25731975
+          day: mollit cupidatat veniam culpa
+          merchant: deserunt voluptate irure occaecat
+          date: '3735-05-15T10:22:50.761Z'
+          card: officia
+          week: ea in
+      totalResults: 47804187
+      groupBy:
+        - card
+        - year
+      dateRange:
+        start: '2794-10-05T23:58:41.122Z'
+        end: '4989-07-26T04:44:33.627Z'
+      timeframe: day
