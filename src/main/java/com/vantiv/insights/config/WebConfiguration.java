@@ -8,8 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.util.PathMatcher;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.sql.DataSource;
@@ -50,7 +49,9 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
     }
 
     /**
-     * Configure DataSource for SQL DB
+     * getDataSource
+     * <p/>
+     * Configure DataSource for Insights SQL DB - is the DB connection
      */
     @Bean
     public DataSource getDataSource() {
@@ -66,7 +67,8 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
 
     /**
      * Creates our BSDAO when needed
-     * @return
+     *
+     * @return BSDAO - a new Insights DB, BS Table Data Access Object
      */
     @Bean
     public BSDAO getBSDAO() {
