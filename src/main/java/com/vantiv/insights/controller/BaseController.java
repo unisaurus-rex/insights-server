@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Common Controller methods
  */
-public class BaseController {
+class BaseController {
 
     @Autowired
     protected HttpServletRequest request;
