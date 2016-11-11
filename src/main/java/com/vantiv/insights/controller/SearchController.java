@@ -8,9 +8,6 @@ import com.vantiv.insights.model.Search.SearchVolumeTotalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  */
@@ -19,6 +16,14 @@ public class SearchController extends BaseController{
 
     @Autowired
     private BSDAO bsdao;
+
+    /**
+     * Path Strings
+     * TODO - should these be in some core constants reference class???
+     */
+    private static final String base = "/search";
+    private static final String totalsPath = base + "/totals";
+    private static final String volumeTotalPath = totalsPath + "/volume";
 
 
     /**
@@ -36,7 +41,7 @@ public class SearchController extends BaseController{
      * @return
      */
     @PostMapping(
-            path = "/search/totals",
+            path = totalsPath,
             consumes = "application/json",
             produces = "application/json")
     public SearchTotalsResponse totalsSearch(@RequestBody(required = false) SearchTotalsRequest searchTotalsRequest,
@@ -48,20 +53,19 @@ public class SearchController extends BaseController{
             // TODO call some Search library function to handle request manipulation/management
         }
 
-        throw new Exception();
         // TODO some incorrect route usage error
 
-//        return searchResponse;
+        return searchResponse;
     }
 
     /**
      * volumeTotalSearch
      * <p/>
      * Handle requests to
-     * /search/totals
-     * /search/totals?limit=limit
-     * /search/totals?offset=offset
-     * /search/totals?limit=limit&offset=offset
+     * /search/totals/volume
+     * /search/totals/volume?limit=limit
+     * /search/totals/volume?offset=offset
+     * /search/totals/volume?limit=limit&offset=offset
      *
      * @param searchVolumeTotalRequest
      * @param id
@@ -69,7 +73,7 @@ public class SearchController extends BaseController{
      * @return
      */
     @PostMapping(
-            path = "/search/totals/volume",
+            path = volumeTotalPath,
             consumes = "application/json",
             produces = "application/json")
     public SearchVolumeTotalResponse volumeTotalsSearch(@RequestBody(required = false) SearchVolumeTotalRequest searchVolumeTotalRequest,
