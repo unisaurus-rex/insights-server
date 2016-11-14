@@ -8,6 +8,11 @@
     <artifactId>vantiv-insights</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <schema.directory>src/main/resources/schemas</schema.directory>
+        <schema.file>insights_v1.json</schema.file>
+    </properties>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -89,6 +94,15 @@
             </plugin>
 
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>${schema.directory}</directory>
+                <includes>
+                    <include>${schema.file}</include>
+                </includes>
+            </resource>
+        </resources>
 
     </build>
 
