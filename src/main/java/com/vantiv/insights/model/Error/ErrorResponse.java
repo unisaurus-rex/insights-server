@@ -12,6 +12,11 @@ public class ErrorResponse {
         this.message = message;
     }
 
+    public ErrorResponse() {
+        this.error = null;
+        this.message = null;
+    }
+
     public String getMessage() {
         return message;
     }
