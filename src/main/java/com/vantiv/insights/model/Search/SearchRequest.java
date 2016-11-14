@@ -1,8 +1,11 @@
 package com.vantiv.insights.model.Search;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * SearchResult
@@ -10,49 +13,88 @@ import java.util.ArrayList;
  * All search requests will have this basic structure
  */
 public final class SearchRequest {
-
-    private ArrayList<groupByFields> groupBy;
+    /**
+     * groupBy
+     * </p>
+     * Columns/specific resources to search on
+     */
+    private Set<GroupBy> groupBy;
+    /**
+     * startDate
+     * </p>
+     * Initial date of date range to search for results in, is inclusive
+     */
     private DateTime startDate;
+    /**
+     * endDate
+     * </p>
+     * Final date of date range to search for results in, is inclusive
+     */
     private DateTime endDate;
-    private String timerange;
+    /**
+     * timeframe
+     * </p>
+     * Timeframe that search results are grouped by ie. year, month, week, day, hour, quarter
+     */
+    private String timeframe;
+    /**
+     * limit
+     * </p>
+     * Maximum count/number of results to be returned
+     */
+    private Integer limit;
+    /**
+     * offset
+     * </p>
+     * Index of first result returned
+     */
+    private Integer offset;
 
     /**
      * SearchRequest
      * </p>
      * Generic search request.
-     * - groupBy - fields to narrow search scope
-     * - dateRange - a date range to search within for results
-     * - dateRange.startDate - the initial date, inclusive, to begin search for results
-     * - dateRange.endDate - the final date, includive, to end the search for results
-     * - timerange - TODO this may be an unnecessary field that should be removed.
+     * groupBy fields to narrow search scope
+     * dateRange a date range to search within for results
+     * dateRange.startDate the initial date, inclusive, to begin search for results
+     * dateRange.endDate the final date, includive, to end the search for results
+     * timeframe TODO this may be an unnecessary field that should be removed.
      */
     public SearchRequest() {
         this.groupBy = null;
         this.startDate = null;
         this.endDate = null;
-        this.timerange = null;
+        this.timeframe = null;
     }
+
+
+    /**************************************/
+    /**Testing Grounds**/
+    /**************************************/
 
     /**
      * getGroupBy
      * </p>
      * Returns the contents of the group by field
      *
-     * @return ArrayList<groupByFields>
+     * @return groupBy
      */
-    public ArrayList<groupByFields> getGroupBy() {
-        return groupBy;
+    public GroupBy[] getGroupBy() {
+        if (groupBy == null) {
+            return new GroupBy[0];
+        }
+        return groupBy.toArray(new GroupBy[groupBy.size()]);
     }
 
     /**
      * setGroupBy
      * </p>
-     * Populates the group by field, with the contents of the passed in ArrayList, with no dulicates
+     * Populates the group by field, with the contents of the passed in Array
      *
-     * @param groupBy - ArrayList of fields to be used to narrow search scope
+     * @param groupBy Array of fields to be used to narrow search scope
      */
-    public void setGroupBy(ArrayList<groupByFields> groupBy) {
-        this.groupBy = groupBy;
+    public void setGroupBy(GroupBy[] groupBy) {
+        this.groupBy = new HashSet<>(Arrays.asList(groupBy));
     }
 
     /**
@@ -60,7 +102,7 @@ public final class SearchRequest {
      * </p>
      * Returns the start date as a DateTime object
      *
-     * @return startDate - initial date, inclusive, to begin search for results
+     * @return startDate initial date, inclusive, to begin search for results
      */
     public DateTime getStartDate() {
         return startDate;
@@ -71,10 +113,10 @@ public final class SearchRequest {
      * </p>
      * Set the start date to begin search for results
      *
-     * @param startDate - initial date, inclusive, to begin search for results
+     * @param startDate initial date, inclusive, to begin search for results
      */
-    public void setStartDate(DateTime startDate) {
-        this.startDate = startDate;
+    public void setStartDate(String startDate) {
+        this.startDate = new DateTime(startDate, DateTimeZone.UTC);
     }
 
     /**
@@ -82,7 +124,7 @@ public final class SearchRequest {
      * </p>
      * Returns the end date to end search for results
      *
-     * @return endDate - final date, inclusive, to end search for results
+     * @return endDate final date, inclusive, to end search for results
      */
     public DateTime getEndDate() {
         return endDate;
@@ -93,50 +135,77 @@ public final class SearchRequest {
      * </p>
      * Set the end date to end the search for results
      *
-     * @param endDate - final date, inclusive, to end the search for results
+     * @param endDate final date, inclusive, to end the search for results
      */
-    public void setEndDate(DateTime endDate) {
-        this.endDate = endDate;
+    public void setEndDate(String endDate) {
+        this.endDate = new DateTime(endDate, DateTimeZone.UTC);
     }
 
     /**
-     * getTimerange
+     * getTimeframe
      * </p>
-     * Get the timerange of the search results
+     * Get the timeframe of the search results
      *
-     * @return timerange - the range of time that the results are group by, ie. year, month, week, day, hour, quarter
+     * @return timeframe the range of time that the results are group by, ie. year, month, week, day, hour, quarter
      */
-    public String getTimerange() {
-        return timerange;
+    public String getTimeframe() {
+        return timeframe;
     }
 
     /**
-     * setTimerange
+     * setTimeframe
      * </p>
      * Set the range of time that the results are group by, ie. year, month, week, day, hour, quarter
-     * TODO - Consider an enumeration if not the removal of this field altogether
+     * TODO Consider an enumeration if not the removal of this field altogether
      *
-     * @param timerange - the range of time that the results are group by, ie. year, month, week, day, hour, quarter
+     * @param timeframe the range of time that the results are group by, ie. year, month, week, day, hour, quarter
      */
-    public void setTimerange(String timerange) {
-        this.timerange = timerange;
+    public void setTimeframe(String timeframe) {
+        this.timeframe = timeframe;
     }
 
     /**
-     * groupByFields
+     * getLimit
      * </p>
-     * Used to limit possibilities for group by field input
+     * Returns the limit (count of search results) returned on this specific request, may be
+     * equal to or lesser than the total number of search results for requested query
+     *
+     * @return limit
      */
-    private enum groupByFields {
-        year,
-        month,
-        week,
-        day,
-        hour,
-        quarter,
-        card,
-        cardGroup,
-        merchant,
-        merchantGroup
+    public Integer getLimit() {
+        return limit;
+    }
+
+    /**
+     * setLimit
+     * </p>
+     * Sets the maximum number of results to be returned on this specific request
+     *
+     * @param limit the maximum count(total) results to return to the client
+     */
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    /**
+     * getOffset
+     * </p>
+     * Returns the index of the first search result returned
+     *
+     * @return offset
+     */
+    public Integer getOffset() {
+        return offset;
+    }
+
+    /**
+     * setOffset
+     * </p>
+     * Sets the index of the first search result returned to the client
+     *
+     * @param offset the index of the first search result
+     */
+    public void setOffset(Integer offset) {
+        this.offset = offset;
     }
 }
