@@ -11,7 +11,7 @@ package com.vantiv.insights.model.Search;
  *
  * @see com.vantiv.insights.model.Search.SearchResult
  */
-public class SearchTotalsResponse {
+public class SearchResponseTotals {
 
     /**
      * groupBy
@@ -68,11 +68,11 @@ public class SearchTotalsResponse {
     private String timeframe;
 
     /**
-     * SearchTotalsResponse
+     * SearchResponseTotals
      * </p>
-     * Used to create a SearchTotalsResponse Object with zero search results
+     * Used to create a SearchResponseTotals Object with zero search results
      */
-    public SearchTotalsResponse() {
+    public SearchResponseTotals() {
         this.groupBy = new GroupBy[0];
         this.searchResults = new SearchResultTotals[0];
         this.totalSearchResults = 0;
