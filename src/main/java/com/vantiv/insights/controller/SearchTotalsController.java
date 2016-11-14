@@ -29,7 +29,7 @@ public class SearchTotalsController extends BaseController {
 
     /**
      * Path Strings
-     * TODO - should these be in some core constants reference class???
+     * TODO should these be in some core constants reference class???
      */
     private static final String basepath = "/search/totals";
     private static final String volumeTotalPath = basepath + "/volume";
@@ -44,22 +44,22 @@ public class SearchTotalsController extends BaseController {
      * /search/totals?offset=offset
      * /search/totals?limit=limit&offset=offset
      *
-     * @param searchRequest - incoming search request body
-     * @param limit         - maximum number of results to be returned to the client
-     * @param offset        - initial index to begin pulling 'limit' results
-     * @return SearchTotalResponse - Contains the totals for all available data points
-     * - volume
-     * - spend
-     * - interchange
-     * - surcharge
+     * @param searchRequest incoming search request body
+     * @param limit         maximum number of results to be returned to the client
+     * @param offset        initial index to begin pulling 'limit' results
+     * @return SearchTotalResponse Contains the totals for all available data points
+     * volume
+     * spend
+     * interchange
+     * surcharge
      */
     @PostMapping(
             path = basepath,
             consumes = "application/json",
             produces = "application/json")
     public ResponseEntity<SearchTotalsResponse> totalsSearch(@RequestBody(required = false) SearchRequest searchRequest,
-                                                            @RequestParam(value = "limit", required = false) Integer limit,
-                                                            @RequestParam(value = "offset", required = false) Integer offset) throws Exception {
+                                                             @RequestParam(value = "limit", required = false) Integer limit,
+                                                             @RequestParam(value = "offset", required = false) Integer offset) throws Exception {
         SearchTotalsResponse searchResponse;
 
         if (searchRequest != null) {
@@ -88,10 +88,10 @@ public class SearchTotalsController extends BaseController {
      * /search/totals/volume?offset=offset
      * /search/totals/volume?limit=limit&offset=offset
      *
-     * @param searchRequest - incoming search request body
-     * @param limit         - maximum number of results to be returned to the client
-     * @param offset        - initial index to begin pulling 'limit' results
-     * @return SearchVolumeTotalResponse - Contains the total volume data point
+     * @param searchRequest incoming search request body
+     * @param limit         maximum number of results to be returned to the client
+     * @param offset        initial index to begin pulling 'limit' results
+     * @return SearchVolumeTotalResponse Contains the total volume data point
      */
     @PostMapping(
             path = volumeTotalPath,
