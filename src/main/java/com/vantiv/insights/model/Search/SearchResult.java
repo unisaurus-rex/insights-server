@@ -1,14 +1,15 @@
 package com.vantiv.insights.model.Search;
 
-import org.joda.time.DateTime;
-
 /**
- * Every
+ * SearchResult
+ * </p>
+ * Every search result can have these fields returned, thus all search result objects will
+ * inherit this
  */
 class SearchResult {
     private String card;
     private String cardGroup;
-    private DateTime date;
+    private String date;
     private String day;
     private String hour;
     private String merchant;
@@ -17,20 +18,6 @@ class SearchResult {
     private String quarter;
     private String week;
     private String year;
-
-    public SearchResult(String card, String cardGroup, DateTime date, String day, String hour, String merchant, String merchantGroup, String month, String quarter, String week, String year) {
-        this.card = card;
-        this.cardGroup = cardGroup;
-        this.date = date;
-        this.day = day;
-        this.hour = hour;
-        this.merchant = merchant;
-        this.merchantGroup = merchantGroup;
-        this.month = month;
-        this.quarter = quarter;
-        this.week = week;
-        this.year = year;
-    }
 
     public SearchResult() {
         this.card = null;
@@ -62,11 +49,11 @@ class SearchResult {
         this.cardGroup = cardGroup;
     }
 
-    public DateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
