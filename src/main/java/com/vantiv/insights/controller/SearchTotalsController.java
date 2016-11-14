@@ -2,7 +2,7 @@ package com.vantiv.insights.controller;
 
 import com.vantiv.insights.lib.Search;
 import com.vantiv.insights.model.Search.SearchRequest;
-import com.vantiv.insights.model.Search.SearchTotalsResponse;
+import com.vantiv.insights.model.Search.SearchResponseTotals;
 import com.vantiv.insights.model.Search.SearchVolumeTotalResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,10 +57,10 @@ public class SearchTotalsController extends BaseController {
             path = basepath,
             consumes = "application/json",
             produces = "application/json")
-    public ResponseEntity<SearchTotalsResponse> totalsSearch(@RequestBody(required = false) SearchRequest searchRequest,
+    public ResponseEntity<SearchResponseTotals> totalsSearch(@RequestBody(required = false) SearchRequest searchRequest,
                                                              @RequestParam(value = "limit", required = false) Integer limit,
                                                              @RequestParam(value = "offset", required = false) Integer offset) throws Exception {
-        SearchTotalsResponse searchResponse;
+        SearchResponseTotals searchResponse;
 
         if (searchRequest != null) {
             //Need to set limit and offset from the incoming URL query parameters
@@ -71,12 +71,12 @@ public class SearchTotalsController extends BaseController {
         } else {
             //TODO How to get exception in Error controller then move this logic there
 
-            return new ResponseEntity<SearchTotalsResponse>(new SearchTotalsResponse(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<SearchResponseTotals>(new SearchResponseTotals(), HttpStatus.BAD_REQUEST);
         }
 
         // TODO some incorrect route usage error
 
-        return new ResponseEntity<SearchTotalsResponse>(searchResponse, HttpStatus.OK);
+        return new ResponseEntity<SearchResponseTotals>(searchResponse, HttpStatus.OK);
     }
 
     /**
