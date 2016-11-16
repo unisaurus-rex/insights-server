@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Utilities Library
+ * </p>
+ * Common functions that may be used across the project
  */
 public class Utils {
 
@@ -29,5 +31,14 @@ public class Utils {
 
         System.out.println(builder.toString());
         return builder.toString();
+    }
+
+    /**
+     * monthToQuarter
+     * @param month - month of the year where first month has a 1 index
+     * @return quarter the quarter for the corresponding passed month
+     */
+    public static Integer monthToQuarter(Integer month) {
+        return (month - 1) / 3 + 1;
     }
 }
