@@ -1,5 +1,7 @@
 package com.vantiv.insights.model.Search;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * SearchResultTotals
  * </p>
@@ -20,30 +22,34 @@ public class SearchResultTotals extends SearchResult {
      * </p>
      * Total volume for given search result
      */
+    @NotNull
     private Double volume;
     /**
      * spend
      * </p>
      * Total spend (amount spent) for given search result
      */
+    @NotNull
     private Double spend;
     /**
      * surcharge
      * </p>
      * Total surcharge for given search result
      */
+    @NotNull
     private Double surcharge;
     /**
      * interchange
      * </p>
      * Total interchange for a given search result
      */
+    @NotNull
     private Double interchange;
 
     /**
      * SearchResultTotals
      * </p>
-     * Sets all searchResultTotals fields (including super class SearchResult fields) to null
+     * Sets all SearchResultTotals fields (including super class SearchResult fields) to null
      */
     public SearchResultTotals() {
         super();
