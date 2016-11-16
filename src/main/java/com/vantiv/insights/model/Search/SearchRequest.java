@@ -1,8 +1,11 @@
 package com.vantiv.insights.model.Search;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,36 +21,44 @@ public final class SearchRequest {
      * </p>
      * Columns/specific resources to search on
      */
+    @NotNull
     private Set<GroupBy> groupBy;
     /**
      * startDate
      * </p>
      * Initial date of date range to search for results in, is inclusive
      */
+    @NotNull
+    @DateTimeFormat
     private DateTime startDate;
     /**
      * endDate
      * </p>
      * Final date of date range to search for results in, is inclusive
      */
+    @NotNull
+    @DateTimeFormat
     private DateTime endDate;
     /**
      * timeframe
      * </p>
      * Timeframe that search results are grouped by ie. year, month, week, day, hour, quarter
      */
+//    @Pattern (regexp = "^[0-9]$") // just playing with @Pattern annotation
     private String timeframe;
     /**
      * limit
      * </p>
-     * Maximum count/number of results to be returned
+     * Maximum count/number of results to be returned. Is ignored in the message body, expected on the URL query string
      */
+    @JsonIgnore
     private Integer limit;
     /**
      * offset
      * </p>
-     * Index of first result returned
+     * Index of first result returned. Is ignored in the message body, expected on the URL query string
      */
+    @JsonIgnore
     private Integer offset;
 
     /**
@@ -65,6 +76,23 @@ public final class SearchRequest {
         this.startDate = null;
         this.endDate = null;
         this.timeframe = null;
+    }
+
+    /**
+     * SearchRequest
+     * </p>
+     * Generic search request.
+     * groupBy fields to narrow search scope
+     * dateRange a date range to search within for results
+     * dateRange.startDate the initial date, inclusive, to begin search for results
+     * dateRange.endDate the final date, includive, to end the search for results
+     * timeframe TODO this may be an unnecessary field that should be removed.
+     */
+    public SearchRequest(GroupBy[] groupBy, String startDate, String endDate, String timeframe) {
+        this.groupBy = new HashSet<>(Arrays.asList(groupBy));
+        this.startDate = new DateTime(startDate, DateTimeZone.UTC);
+        this.endDate = new DateTime(endDate, DateTimeZone.UTC);
+        this.timeframe = timeframe;
     }
 
 
