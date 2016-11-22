@@ -3,20 +3,25 @@ package com.vantiv.insights.model.Search;
 import javax.validation.constraints.NotNull;
 
 /**
+ * SearchResponseInterchangeTotal
+ * <p>
+ * Is a SearchResult with totals of all data points
+ * - interchange
  *
+ * @see com.vantiv.insights.model.Search.SearchResult
  */
-public class SearchResponseInterchangeTotal extends SearchResponse {
+public class SearchResponseInterchangeTotal extends SearchResponse<SearchResultInterchangeTotal> {
     /**
      * searchResults
      * </p>
      * Is the array of the search results from the query for the requested fields and constraints
      */
     @NotNull
-    private SearchResponseInterchangeTotal[] searchResults;
+    private SearchResultInterchangeTotal[] searchResults;
 
     public SearchResponseInterchangeTotal() {
         super();
-        this.searchResults = new SearchResponseInterchangeTotal[0];
+        this.searchResults = new SearchResultInterchangeTotal[0];
     }
 
     /**
@@ -26,7 +31,7 @@ public class SearchResponseInterchangeTotal extends SearchResponse {
      *
      * @return searchResults - contents are the result of search request search parameters
      */
-    public SearchResponseInterchangeTotal[] getSearchResults() {
+    public SearchResultInterchangeTotal[] getSearchResults() {
         return searchResults;
     }
 
@@ -37,7 +42,7 @@ public class SearchResponseInterchangeTotal extends SearchResponse {
      *
      * @param searchResults - results of a search on data points interchange
      */
-    public void setSearchResults(SearchResponseInterchangeTotal[] searchResults) {
+    public void setSearchResults(SearchResultInterchangeTotal[] searchResults) {
         this.searchResults = searchResults;
     }
 }
