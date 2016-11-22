@@ -1,7 +1,9 @@
 package com.vantiv.insights.model.Search;
 
+import javax.validation.constraints.NotNull;
+
 /**
- * SearchTotalResponse
+ * SearchResponseTotals
  * <p>
  * Is a SearchResult with totals of all data points
  * - volume
@@ -11,13 +13,14 @@ package com.vantiv.insights.model.Search;
  *
  * @see com.vantiv.insights.model.Search.SearchResult
  */
-public class SearchResponseTotals extends SearchResponse {
+public class SearchResponseTotals extends SearchResponse<SearchResultTotals> {
 
     /**
      * searchResults
      * </p>
      * Is the array of the search results from the query for the requested fields and constraints
      */
+    @NotNull
     private SearchResultTotals[] searchResults;
 
     /**
