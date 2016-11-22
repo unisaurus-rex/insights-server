@@ -1,12 +1,18 @@
 package com.vantiv.insights.model.Search;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ * SearchResponse
+ * </p>
+ * All SearchResponses will have these base traits, with different type of SearchResults.
+ * SearchResult type is passed as an explicit template argument, or implied by the type
+ * of SearchResponse used
  */
-public class SearchResponse {
+public abstract class SearchResponse<T> {
     /**
      * groupBy
      * </p>
@@ -46,6 +52,7 @@ public class SearchResponse {
      * The initial date to begin pulling search results, is inclusive
      */
     @NotNull
+    @DateTimeFormat
     protected String startDate;
     /**
      * endDate
@@ -53,6 +60,7 @@ public class SearchResponse {
      * The final date to begin pulling search results, is inclusive
      */
     @NotNull
+    @DateTimeFormat
     protected String endDate;
     /**
      * timeframe
@@ -232,4 +240,22 @@ public class SearchResponse {
     public void setTimeframe(String timeframe) {
         this.timeframe = timeframe;
     }
+    /**
+     * getSearchResults
+     * </p>
+     * Returns the array of search results
+     *
+     * @return searchResults - contents are the result of search request search parameters
+     */
+    public abstract T[] getSearchResults() ;
+
+    /**
+     * setSearchResults
+     * </p>
+     * Sets the search results with the given array of SearchResponse entities
+     *
+     * @param searchResults - results of a search on data points spend
+     */
+    public abstract void setSearchResults(T[] searchResults);
+
 }
