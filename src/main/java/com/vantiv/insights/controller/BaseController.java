@@ -1,7 +1,6 @@
 package com.vantiv.insights.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,9 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Common Controller methods
+ * BaseController
+ * </p>
+ * Common Controller methods, all other controllers inherit from BaseController
  */
-class BaseController {
+abstract class BaseController {
 
     @Autowired
     protected HttpServletRequest request;
@@ -38,4 +39,5 @@ class BaseController {
             this.response.setHeader(header.getKey().toString(), header.getValue().toString());
         }
     }
+
 }
