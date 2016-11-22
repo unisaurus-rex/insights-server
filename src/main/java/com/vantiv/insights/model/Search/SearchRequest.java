@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,7 +14,7 @@ import java.util.Set;
 /**
  * SearchResult
  * </p>
- * All search requests will have this basic structure
+ * All search requests will have this standard structure
  */
 public final class SearchRequest {
     /**
@@ -83,10 +84,10 @@ public final class SearchRequest {
      * </p>
      * Generic search request.
      * groupBy fields to narrow search scope
-     * dateRange a date range to search within for results
-     * dateRange.startDate the initial date, inclusive, to begin search for results
-     * dateRange.endDate the final date, includive, to end the search for results
-     * timeframe TODO this may be an unnecessary field that should be removed.
+     * - dateRange a date range to search within for results
+     * - dateRange.startDate the initial date, inclusive, to begin search for results
+     * - dateRange.endDate the final date, includive, to end the search for results
+     * - timeframe TODO this may be an unnecessary field that should be removed.
      */
     public SearchRequest(GroupBy[] groupBy, String startDate, String endDate, String timeframe) {
         this.groupBy = new HashSet<>(Arrays.asList(groupBy));
@@ -123,6 +124,9 @@ public final class SearchRequest {
      */
     public void setGroupBy(GroupBy[] groupBy) {
         this.groupBy = new HashSet<>(Arrays.asList(groupBy));
+
+
+        System.out.println("******************* " + GroupBy.day.ordinal());
     }
 
     /**
