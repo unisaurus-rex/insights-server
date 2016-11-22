@@ -1,12 +1,12 @@
 package com.vantiv.insights.controller;
 
+
 import com.vantiv.insights.model.Error.ErrorResponse;
-import com.vantiv.insights.model.Error.UndefinedRouteResponse;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Custom Error Controller
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ErrorController
         extends BaseController
         implements org.springframework.boot.autoconfigure.web.ErrorController {
+
 //    /**
 //     * Handle Undefined Routes
 //     *
@@ -32,9 +33,24 @@ public class ErrorController
      * Custom handler for /error
      */
     @RequestMapping(path = "/error")
-    public ResponseEntity<ErrorResponse> genericErrorRequest() {
-        System.err.println();
-        return new ResponseEntity<ErrorResponse>(new ErrorResponse("Internal server error.", "An internal server error occured. Blah blah."), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+    public ErrorResponse genericErrorRequest() {
+
+        if (this.response.getStatus() == HttpServletResponse.SC_BAD_REQUEST) {    // 400 http status
+            // TODO Poorly formatted request, client error
+
+        } else if (this.response.getStatus() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR) {   // 500 http status
+            // TODO internal error
+        } else if (this.response.getStatus() == HttpServletResponse.SC_UNAUTHORIZED) {    // 401 http status
+            // TODO unauthorized
+        } else if (this.response.getStatus() == HttpServletResponse.SC_METHOD_NOT_ALLOWED) {
+            // TODO method not allowed
+        } else {
+            // TODO all others
+
+        }
+        System.err.println("Http status code :: " + this.response.getStatus());
+        return new ErrorResponse("Error", null);
     }
 
     @Override
