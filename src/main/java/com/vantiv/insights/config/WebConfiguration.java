@@ -8,7 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.util.PathMatcher;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.sql.DataSource;
@@ -75,6 +76,24 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
         return new BSDAOImpl(getDataSource());
     }
 
+//    @Bean(name = "SearchResultTotals")
+//    @Qualifier("SearchResultTotals")
+//    public SearchResponse<SearchResultTotals> getSearchResponseTotals() {
+//        return new SearchResponseTotals();
+//    }
+//
+//    @Bean(name = "SearchResultInterchangeTotal")
+//    @Qualifier("SearchResultInterchangeTotal")
+//    public SearchResponse<SearchResultInterchangeTotal> getSearchResponseInterchangeTotal(){
+//        return new SearchResponseInterchangeTotal();
+//    }
+
+//    @Bean
+//    public SearchResponse<SearchResultInterchangeTotal> getSearchResponseInterchangeTotal() {
+//        return new SearchResponseInterchangeTotal();
+//    }
+
+
     /**
      * addInterceptors
      * </p>
@@ -86,5 +105,6 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoggingInterceptor());
     }
+
 
 }
