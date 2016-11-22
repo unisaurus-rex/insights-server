@@ -4,6 +4,7 @@ import com.vantiv.insights.lib.Search;
 import com.vantiv.insights.model.Search.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +26,17 @@ public class SearchTotalsController extends BaseController {
 //    @Autowired
 //    private BSDAO bsdao;
 
+//    @Autowired
+//    @Qualifier("SearchResultTotals")
+//    private SearchResponse searchResponse;
+//
+//    @Autowired
+//    @Qualifier("SearchResultInterchangeTotal")
+//    private SearchResponse searchResponse;
+
     /**
      * Path Strings
-     * TODO should these be in some core constants reference class???
+     * TODO should these be in some core constants reference class??? .properties file???
      */
     private static final String basepath = "/search/totals";
     private static final String volumeTotalPath = basepath + "/volume";
@@ -58,29 +67,26 @@ public class SearchTotalsController extends BaseController {
             consumes = "application/json",
             produces = "application/json")
     @ResponseBody
-    public ResponseEntity<SearchResponseTotals> totalsSearch(@Valid @RequestBody(required = false) SearchRequest searchRequest,
-                                                             BindingResult result,
+    public ResponseEntity<SearchResponse> totalsSearch(@Valid @RequestBody(required = true) SearchRequest searchRequest,
+                                                             BindingResult bindingResult,
                                                              @RequestParam(value = "limit", required = false) Integer limit,
-                                                             @RequestParam(value = "offset", required = false) Integer offset) throws Exception {
-        SearchResponseTotals searchResponse;
+                                                             @RequestParam(value = "offset", required = false) Integer offset) {
+        SearchResponse searchResponse = new SearchResponseTotals();
 
-        if (result.hasErrors()) {
-
-            System.err.println(result.getAllErrors()); //temporary to see errors coming out
-            //TODO How to get exception in Error controller then move this logic there
-
-            return new ResponseEntity<SearchResponseTotals> (new SearchResponseTotals(), HttpStatus.BAD_REQUEST);
+        if (bindingResult.hasErrors()) {
+            throw new HttpMessageNotReadableException(bindingResult.getFieldErrors().toString());  // let exception handler take care of it
         } else {
             //Need to set limit and offset from the incoming URL query parameters
             searchRequest.setLimit(limit);
             searchRequest.setOffset(offset);
+
 
             searchResponse = Search.getTotals(searchRequest);
         }
 
         // TODO some incorrect route usage error
 
-        return new ResponseEntity<SearchResponseTotals>(searchResponse, HttpStatus.OK);
+        return new ResponseEntity<>(searchResponse, HttpStatus.OK);
     }
 
     /**
@@ -101,14 +107,14 @@ public class SearchTotalsController extends BaseController {
             path = volumeTotalPath,
             consumes = "application/json",
             produces = "application/json")
-    public SearchResponseVolumeTotal volumeTotalSearch(@Valid @RequestBody(required = false) SearchRequest searchRequest,
-                                                        BindingResult result,
-                                                        @RequestParam(value = "limit", required = false) Integer limit,
-                                                        @RequestParam(value = "offset", required = false) Integer offset) {
-        SearchResponseVolumeTotal searchResponse = new SearchResponseVolumeTotal();
+    public ResponseEntity<SearchResponse> volumeTotalSearch(@Valid @RequestBody(required = true) SearchRequest searchRequest,
+                                                       BindingResult bindingResult,
+                                                       @RequestParam(value = "limit", required = false) Integer limit,
+                                                       @RequestParam(value = "offset", required = false) Integer offset) {
+        SearchResponse searchResponse = new SearchResponseVolumeTotal();
 
-        if (result.hasErrors()) {
-            // TODO some incorrect route usage error
+        if (bindingResult.hasErrors()) {
+            throw new HttpMessageNotReadableException(bindingResult.getFieldErrors().toString());  // let exception handler take care of it
         } else {
             // TODO call some Search library function to handle request manipulation/management
             //Need to set limit and offset from the incoming URL query parameters
@@ -118,7 +124,7 @@ public class SearchTotalsController extends BaseController {
             searchResponse = Search.getVolumeTotal(searchRequest);
         }
 
-        return searchResponse;
+        return new ResponseEntity<>(searchResponse, HttpStatus.OK);
     }
 
     /**
@@ -139,14 +145,14 @@ public class SearchTotalsController extends BaseController {
             path = spendTotalPath,
             consumes = "application/json",
             produces = "application/json")
-    public SearchResponseSpendTotal spendTotalSearch(@Valid @RequestBody(required = false) SearchRequest searchRequest,
-                                                      BindingResult result,
-                                                      @RequestParam(value = "limit", required = false) Integer limit,
-                                                      @RequestParam(value = "offset", required = false) Integer offset) {
-        SearchResponseSpendTotal searchResponse = new SearchResponseSpendTotal();
+    public ResponseEntity<SearchResponse> spendTotalSearch(@Valid @RequestBody(required = true) SearchRequest searchRequest,
+                                                     BindingResult bindingResult,
+                                                     @RequestParam(value = "limit", required = false) Integer limit,
+                                                     @RequestParam(value = "offset", required = false) Integer offset) {
+        SearchResponse searchResponse = new SearchResponseSpendTotal();
 
-        if (result.hasErrors()) {
-            // TODO some incorrect route usage error
+        if (bindingResult.hasErrors()) {
+            throw new HttpMessageNotReadableException(bindingResult.getFieldErrors().toString());  // let exception handler take care of it
         } else {
             // TODO call some Search library function to handle request manipulation/management
             //Need to set limit and offset from the incoming URL query parameters
@@ -156,9 +162,9 @@ public class SearchTotalsController extends BaseController {
             searchResponse = Search.getSpendTotal(searchRequest);
         }
 
-        return searchResponse;
+        return new ResponseEntity<>(searchResponse, HttpStatus.OK);
     }
-    
+
     /**
      * interchangeTotalSearch
      * <p/>
@@ -177,14 +183,14 @@ public class SearchTotalsController extends BaseController {
             path = interchangeTotalPath,
             consumes = "application/json",
             produces = "application/json")
-    public SearchResponseInterchangeTotal interchangeTotalSearch(@Valid @RequestBody(required = false) SearchRequest searchRequest,
-                                                            BindingResult result,
-                                                            @RequestParam(value = "limit", required = false) Integer limit,
-                                                            @RequestParam(value = "offset", required = false) Integer offset) {
-        SearchResponseInterchangeTotal searchResponse = new SearchResponseInterchangeTotal();
+    public ResponseEntity<SearchResponse> interchangeTotalSearch(@Valid @RequestBody(required = true) SearchRequest searchRequest,
+                                                                 BindingResult bindingResult,
+                                                                 @RequestParam(value = "limit", required = false) Integer limit,
+                                                                 @RequestParam(value = "offset", required = false) Integer offset) {
+        SearchResponse searchResponse = new SearchResponseInterchangeTotal();
 
-        if (result.hasErrors()) {
-            // TODO some incorrect route usage error
+        if (bindingResult.hasErrors()) {
+            throw new HttpMessageNotReadableException(bindingResult.getFieldErrors().toString());  // let exception handler take care of it
         } else {
             // TODO call some Search library function to handle request manipulation/management
             //Need to set limit and offset from the incoming URL query parameters
@@ -194,10 +200,10 @@ public class SearchTotalsController extends BaseController {
             searchResponse = Search.getInterchangeTotal(searchRequest);
         }
 
-        return searchResponse;
+        return new ResponseEntity<>(searchResponse, HttpStatus.OK);
     }
 
-    
+
     /**
      * surchargeTotalSearch
      * <p/>
@@ -216,14 +222,14 @@ public class SearchTotalsController extends BaseController {
             path = surchargeTotalPath,
             consumes = "application/json",
             produces = "application/json")
-    public SearchResponseSurchargeTotal surchargeTotalSearch(@Valid @RequestBody(required = false) SearchRequest searchRequest,
-                                                            BindingResult result,
-                                                            @RequestParam(value = "limit", required = false) Integer limit,
-                                                            @RequestParam(value = "offset", required = false) Integer offset) {
-        SearchResponseSurchargeTotal searchResponse = new SearchResponseSurchargeTotal();
+    public ResponseEntity<SearchResponse> surchargeTotalSearch(@Valid @RequestBody(required = true) SearchRequest searchRequest,
+                                                             BindingResult bindingResult,
+                                                             @RequestParam(value = "limit", required = false) Integer limit,
+                                                             @RequestParam(value = "offset", required = false) Integer offset) {
+        SearchResponse searchResponse = new SearchResponseSurchargeTotal();
 
-        if (result.hasErrors()) {
-            // TODO some incorrect route usage error
+        if (bindingResult.hasErrors()) {
+            throw new HttpMessageNotReadableException(bindingResult.getFieldErrors().toString());  // let exception handler take care of it
         } else {
             // TODO call some Search library function to handle request manipulation/management
             //Need to set limit and offset from the incoming URL query parameters
@@ -233,7 +239,7 @@ public class SearchTotalsController extends BaseController {
             searchResponse = Search.getSurchargeTotal(searchRequest);
         }
 
-        return searchResponse;
+        return new ResponseEntity<>(searchResponse, HttpStatus.OK);
     }
 
 
