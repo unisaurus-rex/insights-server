@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 /**
  *
  */
-public class SearchResponseVolumeTotal extends SearchResponse {
+public class SearchResponseVolumeTotal extends SearchResponse<SearchResultVolumeTotal> {
 
     /**
      * searchResults
