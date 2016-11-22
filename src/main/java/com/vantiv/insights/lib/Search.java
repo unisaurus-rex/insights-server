@@ -3,18 +3,13 @@ package com.vantiv.insights.lib;
 import com.vantiv.insights.model.Search.*;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-
-import javax.naming.directory.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import static com.vantiv.insights.model.Search.GroupBy.month;
+import org.springframework.validation.BindingResult;
 
 /**
  * Library of helper functions for the search operation
  */
 public final class Search {
+
     /**
      * getTotals
      * </p>
@@ -23,11 +18,9 @@ public final class Search {
      * @param searchRequest the parsed incoming search request content
      * @return searchResponse
      */
-    public static SearchResponseTotals getTotals(SearchRequest searchRequest) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-
-
+    public static SearchResponse getTotals(SearchRequest searchRequest) {
         // keep response fields consistent with request fields of the same
-        SearchResponseTotals searchResponse = new SearchResponseTotals();
+        SearchResponse searchResponse = new SearchResponseTotals();
         searchResponse.setGroupBy(searchRequest.getGroupBy());
         searchResponse.setStartDate(searchRequest.getStartDate().toLocalDateTime().toString());
         searchResponse.setEndDate(searchRequest.getEndDate().toLocalDateTime().toString());
@@ -112,8 +105,8 @@ public final class Search {
      * @param searchRequest the parsed incoming search request content
      * @return searchResponse
      */
-    public static SearchResponseVolumeTotal getVolumeTotal(SearchRequest searchRequest){
-        SearchResponseVolumeTotal searchResponse = new SearchResponseVolumeTotal();
+    public static SearchResponse getVolumeTotal(SearchRequest searchRequest){
+        SearchResponse searchResponse = new SearchResponseVolumeTotal();
 
         searchResponse.setGroupBy(searchRequest.getGroupBy());
         searchResponse.setStartDate(searchRequest.getStartDate().toLocalDateTime().toString());
@@ -135,8 +128,8 @@ public final class Search {
      * @param searchRequest the parsed incoming search request content
      * @return searchResponse
      */
-    public static SearchResponseSpendTotal getSpendTotal(SearchRequest searchRequest){
-        SearchResponseSpendTotal searchResponse = new SearchResponseSpendTotal();
+    public static SearchResponse getSpendTotal(SearchRequest searchRequest){
+        SearchResponse searchResponse = new SearchResponseSpendTotal();
 
         searchResponse.setGroupBy(searchRequest.getGroupBy());
         searchResponse.setStartDate(searchRequest.getStartDate().toLocalDateTime().toString());
@@ -158,8 +151,8 @@ public final class Search {
      * @param searchRequest the parsed incoming search request content
      * @return searchResponse
      */
-    public static SearchResponseInterchangeTotal getInterchangeTotal(SearchRequest searchRequest){
-        SearchResponseInterchangeTotal searchResponse = new SearchResponseInterchangeTotal();
+    public static SearchResponse getInterchangeTotal(SearchRequest searchRequest){
+        SearchResponse searchResponse = new SearchResponseInterchangeTotal();
 
         searchResponse.setGroupBy(searchRequest.getGroupBy());
         searchResponse.setStartDate(searchRequest.getStartDate().toLocalDateTime().toString());
@@ -181,8 +174,8 @@ public final class Search {
      * @param searchRequest the parsed incoming search request content
      * @return searchResponse
      */
-    public static SearchResponseSurchargeTotal getSurchargeTotal(SearchRequest searchRequest){
-        SearchResponseSurchargeTotal searchResponse = new SearchResponseSurchargeTotal();
+    public static SearchResponse getSurchargeTotal(SearchRequest searchRequest){
+        SearchResponse searchResponse = new SearchResponseSurchargeTotal();
 
         searchResponse.setGroupBy(searchRequest.getGroupBy());
         searchResponse.setStartDate(searchRequest.getStartDate().toLocalDateTime().toString());
